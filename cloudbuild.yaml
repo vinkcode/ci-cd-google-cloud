@@ -1,12 +1,4 @@
 steps:
+# Install
 - name: 'gcr.io/cloud-builders/yarn'
 args: ['']
-
-- name: 'gcr.io/cloud-builders/yarn'
-args: ['run', 'test:unit']
-
-- name: 'gcr.io/cloud-builders/yarn'
-args: ['run', 'build']
-
-- name: 'gcr.io/$PROJECT_ID/firebase'
-args: ['deploy']
