@@ -20,16 +20,26 @@ package main
 // [START import]
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
+	// "github.com/go-chi/chi"
+	//"google.golang.org/appengine"
 )
 
 // [END import]
 // [START main_func]
 
+type Homepage struct {
+	Title string
+}
+
 func main() {
-	// http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/vue", vueHandler)
+
+	http.Handle("/dist/", http.FileServer(http.Dir(".")))
 
 	// [START setting_port]
 	port := os.Getenv("PORT")
@@ -43,7 +53,20 @@ func main() {
 		log.Fatal(err)
 	}
 	// [END setting_port]
+
+	//r := app.SetupEngine(".")
+	// http.Handle("/", r)
+	// appengine.Main()
 }
+
+/* func SetupEngine(basePath string) *chi.Mux {
+	r := chi.NewRouter()
+
+	r.Group(func(r chi.Router) {
+		r.Get("/dist")
+
+	})
+} */
 
 // [END main_func]
 
@@ -60,3 +83,21 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 // [END indexHandler]
 // [END gae_go111_app]
+
+func vueHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/vue" {
+		http.NotFound(w, r)
+		return
+	}
+	tmpl, err := template.ParseFiles("./templates/home.html")
+
+	if err != nil {
+		fmt.Fprint(w, err)
+	}
+
+	data := Homepage{
+		Title: "VueJS Page",
+	}
+
+	tmpl.Execute(w, data)
+}

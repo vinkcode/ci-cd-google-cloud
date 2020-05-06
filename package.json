@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "cd .. && go run main.go"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -26,6 +27,7 @@
     "@vue/eslint-config-standard": "^5.1.2",
     "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.1.0",
+    "copy-webpack-plugin": "^5.1.1",
     "cypress": "^4.3.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
