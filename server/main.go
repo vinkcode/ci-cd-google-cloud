@@ -37,9 +37,9 @@ type Homepage struct {
 
 func main() {
 	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/vue", vueHandler)
+	http.HandleFunc("/vue/", vueHandler)
 
-	http.Handle("/dist/", http.FileServer(http.Dir("./dist")))
+	http.Handle("/dist/", http.FileServer(http.Dir(".")))
 
 	// [START setting_port]
 	port := os.Getenv("PORT")
@@ -85,7 +85,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 // [END gae_go111_app]
 
 func vueHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/vue" {
+	if r.URL.Path != "/vue/" {
 		http.NotFound(w, r)
 		return
 	}
