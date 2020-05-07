@@ -39,7 +39,7 @@ func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/vue", vueHandler)
 
-	http.Handle("/dist/", http.FileServer(http.Dir(".")))
+	http.Handle("/dist/", http.FileServer(http.Dir("./dist")))
 
 	// [START setting_port]
 	port := os.Getenv("PORT")
